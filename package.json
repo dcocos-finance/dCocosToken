@@ -1,28 +1,43 @@
 {
-  "name": "CocosToken",
-  "version": "1.0.0",
+  "name": "reward-contract",
+  "version": "0.0.1",
   "description": "",
-  "main": "truffle.js",
-  "directories": {
-    "test": "test"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dcocos-finance/reward-contract.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.7",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eth-gas-reporter": "^0.2.12",
+    "ganache-cli": "^6.7.0",
+    "openzeppelin-test-helpers": "^0.5.1",
+    "solc": "^0.5.12",
+    "solidity-coverage": "^0.6.7",
+    "solium": "^1.2.5",
+    "truffle": "^5.0.43",
+    "truffle-flattener": "^1.3.0"
   },
   "scripts": {
-    "dev": "lite-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "lite-server": "^2.3.0"
-  },
-  "dependencies": {
-    "bignumber": "^1.1.0",
-    "ethereumjs-tx": "^2.1.0",
-    "node-xlsx": "^0.15.0",
-    "openzeppelin-solidity": "^2.3.0",
-    "remix-ide": "^0.8.4",
-    "truffle-flattener": "^1.4.0",
-    "web3": "^1.2.1",
-    "xlsx": "^0.15.1"
+    "test": "scripts/test.sh",
+    "coverage": "scripts/coverage.sh && cat coverage/lcov.info | coveralls",
+    "lint:js": "eslint .",
+    "lint:js:fix": "eslint . --fix",
+    "lint:sol": "solium -d .",
+    "lint:sol:fix": "solium -d . --fix",
+    "lint": "npm run lint:js && npm run lint:sol",
+    "lint:fix": "npm run lint:js:fix && npm run lint:sol:fix",
+    "dcocos": "truffle-flattener ./contracts/dCOCOS.sol > dCOCOS.full.sol && solcjs --bin --abi --optimize dCOCOS.full.sol && mv dCOCOS.full.sol ./deployments/dCOCOS.full.sol && mv dCOCOS_full_sol_dCOCOS.bin ./deployments/dCOCOS.full.bin && mv dCOCOS_full_sol_dCOCOS.abi ./deployments/dCOCOS.full.abi && rm *_sol_*",
+    "gateway": "truffle-flattener ./contracts/CocosGateway.sol > CocosGateway.full.sol && solcjs --bin --abi --optimize CocosGateway.full.sol && mv CocosGateway.full.sol ./deployments/CocosGateway.full.sol && mv CocosGateway_full_sol_CocosGateway.bin ./deployments/CocosGateway.full.bin && mv CocosGateway_full_sol_CocosGateway.abi ./deployments/CocosGateway.full.abi && rm *_sol_*"
   }
 }
