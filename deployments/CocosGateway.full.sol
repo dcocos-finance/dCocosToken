@@ -424,7 +424,7 @@ contract CocosGateway  {
     function addDCOCOSSupply(uint256 supply) 
         public
     {
-        require(msg.sender == governance, "!governance");
+        require(msg.sender == governance, "!governace");
         dcocosMaxSupply = dcocosMaxSupply.add(supply);
     }
 
@@ -432,6 +432,7 @@ contract CocosGateway  {
         uint256 supply = dcocosTotalSupply.add(amount);
         require(supply < dcocosMaxSupply, "supply is too large");
         dcocos.mint(address(this),amount);
+        dcocosTotalSupply = supply;
         emit MintDCOCOS(amount);
     }
 
