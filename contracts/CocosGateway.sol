@@ -5,13 +5,14 @@
 pragma solidity ^0.5.0;
 
 
-import '@openzeppelin/contracts/ownership/Ownable.sol';
 import './IERC20.sol';
 import './SafeERC20.sol';
 
-contract CocosGateway is Ownable {
+contract CocosGateway  {
     using SafeERC20 for IERC20;
     using SafeMath for uint256;
+
+    address public governance;
 
     IERC20 public cocos = IERC20(0x60626db611a9957C1ae4Ac5b7eDE69e24A3B76c5);
     IERC20 public dcocos = IERC20(0x16cAC1403377978644e78769Daa49d8f6B6CF565);
@@ -24,7 +25,15 @@ contract CocosGateway is Ownable {
     event SwapDCOCOS(address indexed user, uint256 amount);
     event SwapCOCOS(address indexed user, uint256 amount);
 
+    constructor () public {
+        governance = tx.origin;
+    }
 
+    function setGovernance(address _governance) public {
+        require(msg.sender == governance, "!governance");
+        governance = _governance;
+    }
+    
     function addDCOCOSSupply(uint256 supply) 
         public
         onlyOwner
