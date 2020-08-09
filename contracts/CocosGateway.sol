@@ -33,11 +33,11 @@ contract CocosGateway  {
         require(msg.sender == governance, "!governance");
         governance = _governance;
     }
-    
+
     function addDCOCOSSupply(uint256 supply) 
         public
-        onlyOwner
     {
+        require(msg.sender == governance, "!governance");
         dcocosMaxSupply = dcocosMaxSupply.add(supply);
     }
 
