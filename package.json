@@ -37,6 +37,7 @@
     "lint:sol:fix": "solium -d . --fix",
     "lint": "npm run lint:js && npm run lint:sol",
     "lint:fix": "npm run lint:js:fix && npm run lint:sol:fix",
+    "deploy": "scripts/deploy.sh",
     "dcocos": "truffle-flattener ./contracts/dCOCOS.sol > dCOCOS.full.sol && solcjs --bin --abi --optimize dCOCOS.full.sol && mv dCOCOS.full.sol ./deployments/dCOCOS.full.sol && mv dCOCOS_full_sol_dCOCOS.bin ./deployments/dCOCOS.full.bin && mv dCOCOS_full_sol_dCOCOS.abi ./deployments/dCOCOS.full.abi && rm *_sol_*",
     "gateway": "truffle-flattener ./contracts/CocosGateway.sol > CocosGateway.full.sol && solcjs --bin --abi --optimize CocosGateway.full.sol && mv CocosGateway.full.sol ./deployments/CocosGateway.full.sol && mv CocosGateway_full_sol_CocosGateway.bin ./deployments/CocosGateway.full.bin && mv CocosGateway_full_sol_CocosGateway.abi ./deployments/CocosGateway.full.abi && rm *_sol_*"
   }
