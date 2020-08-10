@@ -561,16 +561,13 @@ pragma solidity ^0.5.0;
 
 
 
-
 /// @title dCocosToken Contract
 /// For more information about this token please visit https://dcocos.finance
 /// @author reedhong
 
 
 
-contract dCOCOS is ERC20, ERC20Detailed {
-  using SafeMath for uint;
-  
+contract dCOCOS is ERC20, ERC20Detailed {  
   
   address public governance;
   mapping (address => bool) public minters;

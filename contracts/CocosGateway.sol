@@ -4,11 +4,11 @@
 /// @author reedhong
 pragma solidity ^0.5.0;
 
-
+import '@openzeppelin/contracts/lifecycle/Pausable.sol';
 import './IERC20.sol';
 import './SafeERC20.sol';
 
-contract CocosGateway  {
+contract CocosGateway is Pausable {
     using SafeERC20 for IERC20;
     using SafeMath for uint256;
 
@@ -26,6 +26,7 @@ contract CocosGateway  {
     event SwapCOCOS(address indexed user, uint256 amount);
 
     constructor () public {
+        pause();
         governance = tx.origin;
     }
 
@@ -34,7 +35,7 @@ contract CocosGateway  {
         governance = _governance;
     }
 
-    function addDCOCOSSupply(uint256 supply) 
+    function addDCOCOSSupply(uint256 supply)  
         public
     {
         require(msg.sender == governance, "!governance");
@@ -52,6 +53,7 @@ contract CocosGateway  {
     // COCOS->dCOCOS
     function swapDCOCOS(uint256 amount) 
         public
+        whenNotPaused
         returns (bool) 
     {
         uint256 dcocosBalance =  dcocos.balanceOf(address(this));
@@ -71,6 +73,7 @@ contract CocosGateway  {
     // dCOCOS->COCOS
     function swapCOCOS(uint256 amount) 
         public
+        whenNotPaused
         returns (bool) 
     {
         uint256 cocosBalance =  cocos.balanceOf(address(this));
